@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Link - Link4Unlock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:#0a0a0f;color:#fff;line-height:1.5;}
+        .container{max-width:900px;margin:0 auto;padding:0 20px;}
+        
+        /* Top Bar with Home Link */
+        .top-bar{background:rgba(15,15,26,0.95);backdrop-filter:blur(10px);padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.08);position:sticky;top:0;z-index:100;}
+        .top-bar .container{display:flex;justify-content:space-between;align-items:center;}
+        .logo-small{display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff;font-weight:600;}
+        .logo-small i{color:#667eea;}
+        .home-link{color:#a0a0b0;text-decoration:none;transition:color 0.3s;}
+        .home-link:hover{color:#667eea;}
+        
+        .unlock-header{text-align:center;margin:30px 0;}
+        .unlock-header h1{font-size:1.8rem;display:flex;align-items:center;justify-content:center;gap:10px;}
+        .unlock-header p{color:#a0a0b0;}
+        
+        .unlock-card{background:rgba(255,255,255,0.05);border-radius:24px;padding:32px;border:1px solid rgba(255,255,255,0.08);}
+        
+        .task-item{display:flex;align-items:center;justify-content:space-between;padding:18px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+        .task-info{display:flex;align-items:center;gap:15px;flex:1;}
+        .task-icon{width:48px;height:48px;background:rgba(102,126,234,0.15);border-radius:14px;display:flex;align-items:center;justify-content:center;}
+        .task-icon i{font-size:1.5rem;}
+        .task-name{font-weight:600;margin-bottom:4px;}
+        .task-status{font-size:0.7rem;color:#a0a0b0;}
+        .task-item.completed .task-status{color:#28a745;}
+        .task-action-btn{background:rgba(102,126,234,0.2);border:none;padding:10px 24px;border-radius:40px;color:#fff;cursor:pointer;font-weight:500;}
+        .task-action-btn:hover{background:#667eea;}
+        .task-action-btn.completed{background:#28a745;}
+        
+        .progress-section{margin:25px 0;padding:20px 0 10px;border-top:1px solid rgba(255,255,255,0.08);}
+        .progress-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;}
+        .progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);width:0%;transition:width 0.3s;}
+        .progress-text{text-align:right;font-size:0.7rem;color:#a0a0b0;margin-top:6px;}
+        
+        .unlock-btn{width:100%;padding:16px;background:#ffc107;border:none;border-radius:60px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:10px;color:#1a1a2e;}
+        .unlock-btn:disabled{opacity:0.5;cursor:not-allowed;}
+        
+        .unlock-success{text-align:center;padding:35px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:20px;margin-top:20px;animation:fadeInUp 0.5s;}
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+        .content-link{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#667eea;padding:12px 28px;border-radius:60px;text-decoration:none;font-weight:700;}
+        
+        /* Why Link4Unlock Section */
+        .why-section{margin:40px 0;padding:32px;background:rgba(255,255,255,0.03);border-radius:24px;}
+        .why-section h3{text-align:center;margin-bottom:24px;font-size:1.3rem;}
+        .why-section h3 i{color:#667eea;margin-right:10px;}
+        .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
+        .why-item{text-align:center;padding:20px;}
+        .why-item i{font-size:2rem;color:#667eea;margin-bottom:12px;}
+        .why-item h4{margin-bottom:8px;}
+        .why-item p{color:#a0a0b0;font-size:0.8rem;}
+        
+        /* Ad Sections */
+        .ad-container{background:rgba(255,255,255,0.03);border-radius:16px;padding:20px;text-align:center;margin:20px 0;}
+        .ad-label{font-size:0.7rem;color:#666;margin-bottom:10px;text-transform:uppercase;}
+        .ad-placeholder{background:rgba(255,255,255,0.05);border-radius:12px;padding:30px;color:#666;border:1px dashed rgba(255,255,255,0.1);}
+        
+        .unlock-faq{margin-top:30px;padding-top:25px;border-top:1px solid rgba(255,255,255,0.08);}
+        .faq-question{font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+        .faq-answer{color:#a0a0b0;font-size:0.8rem;padding-left:24px;display:none;}
+        .faq-item.active .faq-answer{display:block;}
+        
+        .create-popup{position:fixed;top:80px;right:20px;background:linear-gradient(135deg,#667eea,#764ba2);padding:10px 18px;border-radius:50px;display:flex;align-items:center;gap:10px;z-index:200;transform:translateX(120%);transition:transform 0.4s;cursor:pointer;}
+        .create-popup.show{transform:translateX(0);}
+        .create-popup button{background:#fff;border:none;padding:4px 12px;border-radius:40px;color:#667eea;cursor:pointer;}
+        
+        .toast{position:fixed;bottom:30px;right:20px;padding:12px 24px;border-radius:50px;color:#fff;z-index:1000;animation:slideUp 0.3s;}
+        .toast.success{background:#28a745;}
+        .error-box{text-align:center;padding:50px;background:rgba(255,255,255,0.05);border-radius:24px;}
+        
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+        @media (max-width:600px){.unlock-card{padding:20px;}.task-item{flex-wrap:wrap;gap:12px;}.task-action-btn{width:100%;}}
+    </style>
+</head>
+<body>
+
+<!-- Top Bar with Home Link -->
+<div class="top-bar">
+    <div class="container">
+        <a href="index.html" class="logo-small"><i class="fas fa-unlock-alt"></i> Link4Unlock</a>
+        <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
+    </div>
+</div>
+
+<div id="createPopup" class="create-popup" onclick="window.location.href='create.html'">
+    <i class="fas fa-magic"></i>
+    <span>Create Your Own Link</span>
+    <button onclick="event.stopPropagation();window.location.href='create.html'">Create →</button>
+</div>
+
+<div class="container">
+    <div class="unlock-header">
+        <h1><i class="fas fa-lock-open"></i> Unlock Link</h1>
+        <p>Complete the actions and unlock the link</p>
+    </div>
+
+    <div class="unlock-card" id="unlockCard">
+        <div style="text-align:center;padding:50px;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+</div>
+
+<script>
+    // Get data from URL (sitename/abc123 format)
+    function getDataFromURL() {
+        const path = window.location.pathname;
+        const shortCode = path.substring(1); // Remove leading slash
+        
+        if(shortCode && shortCode !== 'unlock.html' && shortCode !== 'index.html') {
+            const savedLinks = JSON.parse(localStorage.getItem('link4unlock_permanent') || '{}');
+            const encodedData = savedLinks[shortCode];
+            if(encodedData) {
+                try {
+                    const decoded = JSON.parse(decodeURIComponent(escape(atob(encodedData))));
+                    return decoded;
+                } catch(e) { return null; }
+            }
+        }
+        
+        // Fallback for old format
+        const urlParams = new URLSearchParams(window.location.search);
+        const encodedData = urlParams.get('d');
+        if(encodedData) {
+            try {
+                return JSON.parse(decodeURIComponent(escape(atob(encodedData))));
+            } catch(e) { return null; }
+        }
+        return null;
+    }
+    
+    const linkData = getDataFromURL();
+    
+    if(!linkData) {
+        document.getElementById('unlockCard').innerHTML = `
+            <div class="error-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Invalid or Expired Link!</h2>
+                <p>The link you tried to access is not valid.</p>
+                <a href="create.html" style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:12px 28px;border-radius:40px;text-decoration:none;display:inline-block;margin-top:15px;">Create Your Own Link →</a>
+            </div>
+        `;
+    } else {
+        window.currentUnlock = {
+            destination: linkData.d,
+            tasks: linkData.t.map(t => ({ ...t, completed: false }))
+        };
+        renderPage();
+        
+        setTimeout(() => {
+            const popup = document.getElementById('createPopup');
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 6000);
+        }, 2000);
+    }
+    
+    function renderPage() {
+        const data = window.currentUnlock;
+        const card = document.getElementById('unlockCard');
+        
+        let tasksHtml = '<div class="tasks-list">';
+        data.tasks.forEach((task, idx) => {
+            tasksHtml += `
+                <div class="task-item" id="task_${idx}">
+                    <div class="task-info">
+                        <div class="task-icon"><i class="${task.icon}" style="color:${task.color}"></i></div>
+                        <div><div class="task-name">${task.name}</div><div class="task-status" id="status_${idx}"><i class="fas fa-clock"></i> Pending</div></div>
+                    </div>
+                    <button class="task-action-btn" id="btn_${idx}" onclick="completeTask(${idx})"><i class="fas fa-arrow-right"></i> Continue</button>
+                </div>
+            `;
+        });
+        tasksHtml += '</div>';
+        
+        tasksHtml += `
+            <div class="progress-section">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text"><span id="completedCount">0</span>/<span id="totalCount">${data.tasks.length}</span></div>
+            </div>
+            <button id="unlockBtn" class="unlock-btn" onclick="unlockContent()" disabled><i class="fas fa-lock"></i> Complete all tasks to unlock</button>
+            <div id="unlockedArea" style="display:none;"><div class="unlock-success"><i class="fas fa-check-circle"></i><h3>Content Unlocked!</h3><a href="#" id="destinationLink" class="content-link" target="_blank">Access Content <i class="fas fa-arrow-right"></i></a></div></div>
+        `;
+        
+        // Add Why Section + Ads
+        tasksHtml += `
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder"><i class="fas fa-ad"></i> Your Ad Here - Contact for advertising</div>
+            </div>
+            
+            <div class="why-section">
+                <h3><i class="fas fa-question-circle"></i> Why Link4Unlock?</h3>
+                <div class="why-grid">
+                    <div class="why-item"><i class="fas fa-ad"></i><h4>Ad Free Experience</h4><p>Totally Ads Free for your audience</p></div>
+                    <div class="why-item"><i class="fas fa-hand-holding-heart"></i><h4>Free & Easy to Use</h4><p>No signup required</p></div>
+                    <div class="why-item"><i class="fas fa-infinity"></i><h4>No Limits</h4><p>Generate unlimited links</p></div>
+                    <div class="why-item"><i class="fas fa-bolt"></i><h4>Superfast Server</h4><p>Zero trouble guaranteed</p></div>
+                </div>
+            </div>
+            
+            <div class="ad-container">
+                <div class="ad-label">Advertisement</div>
+                <div class="ad-placeholder"><i class="fas fa-ad"></i> Your Ad Here</div>
+            </div>
+            
+            <div class="unlock-faq">
+                <h4><i class="fas fa-question-circle"></i> FAQ</h4>
+                <div class="faq-item"><div class="faq-question"><i class="fas fa-question"></i> How to Unlock link?</div><div class="faq-answer">Complete all the actions above one by one. When you have done all actions, click on the unlock link button.</div></div>
+                <div class="faq-item"><div class="faq-question"><i class="fas fa-question"></i> What is a social unlock?</div><div class="faq-answer">Use a social unlock to offer a digital item like a downloadable file, coupon code, or secret link to fans.</div></div>
+            </div>
+        `;
+        
+        card.innerHTML = tasksHtml;
+        updateProgress();
+        
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+        });
+    }
+    
+    function completeTask(index) {
+        const data = window.currentUnlock;
+        const task = data.tasks[index];
+        if(task.completed) return;
+        
+        if(task.url) {
+            window.open(task.url, '_blank');
+            showToast('Complete the action and come back!', 'info');
+            
+            setTimeout(() => {
+                if(!task.completed) {
+                    task.completed = true;
+                    document.getElementById(`task_${index}`).classList.add('completed');
+                    document.getElementById(`status_${index}`).innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    document.getElementById(`btn_${index}`).innerHTML = '<i class="fas fa-check"></i> Done';
+                    document.getElementById(`btn_${index}`).classList.add('completed');
+                    updateProgress();
+                    showToast('✓ Task completed!', 'success');
+                    
+                    const allCompleted = data.tasks.every(t => t.completed);
+                    const unlockBtn = document.getElementById('unlockBtn');
+                    if(allCompleted) {
+                        unlockBtn.disabled = false;
+                        unlockBtn.innerHTML = '<i class="fas fa-unlock-alt"></i> Unlock Link Now →';
+                        unlockBtn.style.background = '#28a745';
+                        showToast('🎉 All tasks completed! Click Unlock!', 'success');
+                    }
+                }
+            }, 4000);
+        }
+    }
+    
+    function updateProgress() {
+        const data = window.currentUnlock;
+        const completed = data.tasks.filter(t => t.completed).length;
+        const total = data.tasks.length;
+        const percent = (completed / total) * 100;
+        document.getElementById('progressFill').style.width = `${percent}%`;
+        document.getElementById('completedCount').textContent = completed;
+    }
+    
+    function unlockContent() {
+        const data = window.currentUnlock;
+        if(!data.tasks.every(t => t.completed)) { showToast('Complete all tasks first!', 'error'); return; }
+        document.getElementById('unlockedArea').style.display = 'block';
+        document.getElementById('destinationLink').href = data.destination;
+        document.getElementById('unlockBtn').style.display = 'none';
+        showToast('🎉 Content unlocked!', 'success');
+    }
+    
+    function showToast(msg, type) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+</script>
+</body>
+</html>
