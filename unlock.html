@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    <title>Unlock Content - Complete Tasks | Link4Unlock</title>
+    <meta name="description" content="Complete all tasks to unlock your content. Subscribe, follow, join and get access to your file or link.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://link4unlock.github.io/unlock.html">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="container">
+        <a href="index.html" class="logo-small"><i class="fas fa-unlock-alt"></i> Link4Unlock</a>
+        <a href="index.html" class="home-link"><i class="fas fa-home"></i> Home</a>
+    </div>
+</div>
+
+<div id="createPopup" class="create-popup" onclick="window.location.href='create.html'">
+    <i class="fas fa-magic"></i>
+    <span>Create Your Own Link</span>
+    <button onclick="event.stopPropagation();window.location.href='create.html'">Create →</button>
+</div>
+
+<div class="container">
+    <div class="unlock-header">
+        <h1><i class="fas fa-lock-open"></i> Unlock Link</h1>
+        <p>Complete the actions and unlock the link</p>
+    </div>
+
+    <div class="unlock-card" id="unlockCard">
+        <div style="text-align:center;padding:50px;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+    </div>
+</div>
+
+<script>
+    function getDataFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let shortCode = urlParams.get('code') || urlParams.get('id');
+        
+        if(shortCode) {
+            const savedLinks = JSON.parse(localStorage.getItem('link4unlock_permanent') || '{}');
+            const encodedData = savedLinks[shortCode];
+            if(encodedData) {
+                try {
+                    return JSON.parse(decodeURIComponent(escape(atob(encodedData))));
+                } catch(e) { return null; }
+            }
+        }
+        return null;
+    }
+    
+    const linkData = getDataFromURL();
+    
+    if(!linkData) {
+        document.getElementById('unlockCard').innerHTML = `
+            <div class="error-box">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h2>Invalid or Expired Link!</h2>
+                <p>The link you tried to access is not valid.</p>
+                <a href="create.html" class="btn-primary">Create Your Own Link →</a>
+            </div>
+        `;
+    } else {
+        window.currentUnlock = {
+            destination: linkData.d,
+            tasks: linkData.t.map(t => ({ ...t, completed: false }))
+        };
+        renderPage();
+        
+        setTimeout(() => {
+            const popup = document.getElementById('createPopup');
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 6000);
+        }, 2000);
+    }
+    
+    function renderPage() {
+        const data = window.currentUnlock;
+        const card = document.getElementById('unlockCard');
+        
+        let tasksHtml = '<div class="tasks-list">';
+        data.tasks.forEach((task, idx) => {
+            tasksHtml += `
+                <div class="task-item" id="task_${idx}">
+                    <div class="task-info">
+                        <div class="task-icon"><i class="${task.icon}" style="color:${task.color}"></i></div>
+                        <div><div class="task-name">${task.name}</div><div class="task-status" id="status_${idx}"><i class="fas fa-clock"></i> Pending</div></div>
+                    </div>
+                    <button class="task-action-btn" id="btn_${idx}" onclick="completeTask(${idx})"><i class="fas fa-arrow-right"></i> Continue</button>
+                </div>
+            `;
+        });
+        tasksHtml += '</div>';
+        
+        tasksHtml += `
+            <div class="progress-section">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text"><span id="completedCount">0</span>/<span id="totalCount">${data.tasks.length}</span></div>
+            </div>
+            <button id="unlockBtn" class="unlock-btn" onclick="unlockContent()" disabled><i class="fas fa-lock"></i> Complete all tasks to unlock</button>
+            <div id="unlockedArea" style="display:none;"><div class="unlock-success"><i class="fas fa-check-circle"></i><h3>Content Unlocked!</h3><a href="#" id="destinationLink" class="content-link" target="_blank">Access Content <i class="fas fa-arrow-right"></i></a></div></div>
+        `;
+        
+        tasksHtml += `
+            <div class="why-section">
+                <h3><i class="fas fa-question-circle"></i> Why Link4Unlock?</h3>
+                <div class="why-grid">
+                    <div class="why-item"><i class="fas fa-ad"></i><h4>Ad Free Experience</h4><p>Totally Ads Free for your audience</p></div>
+                    <div class="why-item"><i class="fas fa-hand-holding-heart"></i><h4>Free & Easy to Use</h4><p>No signup required</p></div>
+                    <div class="why-item"><i class="fas fa-infinity"></i><h4>No Limits</h4><p>Generate unlimited links</p></div>
+                </div>
+            </div>
+            
+            <div class="unlock-faq">
+                <h4><i class="fas fa-question-circle"></i> FAQ</h4>
+                <div class="faq-item"><div class="faq-question"><i class="fas fa-question"></i> How to Unlock link?</div><div class="faq-answer">Complete all the actions above one by one. When you have done all actions, click on the unlock link button.</div></div>
+                <div class="faq-item"><div class="faq-question"><i class="fas fa-question"></i> What is a social unlock?</div><div class="faq-answer">Use a social unlock to offer a digital item like a downloadable file, coupon code, or secret link to fans.</div></div>
+            </div>
+        `;
+        
+        card.innerHTML = tasksHtml;
+        updateProgress();
+        
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+        });
+    }
+    
+    function completeTask(index) {
+        const data = window.currentUnlock;
+        const task = data.tasks[index];
+        if(task.completed) return;
+        
+        if(task.url) {
+            window.open(task.url, '_blank');
+            showToast('Complete the action and come back!', 'info');
+            
+            setTimeout(() => {
+                if(!task.completed) {
+                    task.completed = true;
+                    document.getElementById(`task_${index}`).classList.add('completed');
+                    document.getElementById(`status_${index}`).innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    document.getElementById(`btn_${index}`).innerHTML = '<i class="fas fa-check"></i> Done';
+                    document.getElementById(`btn_${index}`).classList.add('completed');
+                    updateProgress();
+                    showToast('✓ Task completed!', 'success');
+                    
+                    const allCompleted = data.tasks.every(t => t.completed);
+                    const unlockBtn = document.getElementById('unlockBtn');
+                    if(allCompleted) {
+                        unlockBtn.disabled = false;
+                        unlockBtn.innerHTML = '<i class="fas fa-unlock-alt"></i> Unlock Link Now →';
+                        unlockBtn.style.background = '#28a745';
+                        showToast('🎉 All tasks completed! Click Unlock!', 'success');
+                    }
+                }
+            }, 4000);
+        }
+    }
+    
+    function updateProgress() {
+        const data = window.currentUnlock;
+        const completed = data.tasks.filter(t => t.completed).length;
+        const total = data.tasks.length;
+        const percent = (completed / total) * 100;
+        document.getElementById('progressFill').style.width = `${percent}%`;
+        document.getElementById('completedCount').textContent = completed;
+    }
+    
+    function unlockContent() {
+        const data = window.currentUnlock;
+        if(!data.tasks.every(t => t.completed)) { showToast('Complete all tasks first!', 'error'); return; }
+        document.getElementById('unlockedArea').style.display = 'block';
+        document.getElementById('destinationLink').href = data.destination;
+        document.getElementById('unlockBtn').style.display = 'none';
+        showToast('🎉 Content unlocked!', 'success');
+    }
+    
+    function showToast(msg, type) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+</script>
+</body>
+</html>
