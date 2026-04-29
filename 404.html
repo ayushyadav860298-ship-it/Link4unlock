@@ -536,12 +536,12 @@ if (shortCode.endsWith('/')) shortCode = shortCode.slice(0, -1);
 
         loadLinkData();
     </script>
-<!-- Bottom Floating Slide Ad with Close Button + Return After 30 Sec -->
+    <!-- Real Close Floating Bottom Ad (Hide Completely + Return in 20 Sec) -->
 <style>
 #bottomFloatAd{
 position:fixed;
 left:50%;
-bottom:-120px;
+bottom:-150px;
 transform:translateX(-50%);
 width:320px;
 max-width:95%;
@@ -550,38 +550,53 @@ border-radius:12px 12px 0 0;
 box-shadow:0 -4px 15px rgba(0,0,0,.35);
 z-index:99999;
 overflow:hidden;
-transition:all .5s ease;
+transition:bottom .5s ease, opacity .4s ease;
+opacity:1;
 }
-#bottomFloatAd.show{bottom:0;}
+
+#bottomFloatAd.show{
+bottom:0;
+opacity:1;
+display:block;
+}
+
+#bottomFloatAd.hide{
+bottom:-200px;
+opacity:0;
+pointer-events:none;
+}
 
 #bottomFloatAd .closeBtn{
 position:absolute;
-top:4px;
+top:5px;
 right:6px;
-width:18px;
-height:18px;
-line-height:18px;
+width:20px;
+height:20px;
+line-height:20px;
 text-align:center;
-font-size:12px;
+font-size:13px;
+font-weight:bold;
 background:#fff;
 color:#000;
 border-radius:50%;
 cursor:pointer;
-z-index:2;
+z-index:10;
 }
 
 #bottomFloatAd .adBox{
-padding:20px 0 0;
+padding:22px 0 0;
 text-align:center;
 min-height:50px;
 }
 
 @media(max-width:480px){
-#bottomFloatAd{width:100%;}
+#bottomFloatAd{
+width:100%;
+}
 }
 </style>
 
-<div id="bottomFloatAd">
+<div id="bottomFloatAd" class="hide">
 <div class="closeBtn" onclick="closeFloatAd()">✕</div>
 
 <div class="adBox">
@@ -589,35 +604,40 @@ min-height:50px;
 <!-- Ads Code Here -->
 <script>
   atOptions = {
-    'key' : 'c9a47753ed7f31fece0519ed66636550',
+    'key' : 'f10ccb9678bfe29f56e955560b6155be',
     'format' : 'iframe',
     'height' : 250,
     'width' : 300,
     'params' : {}
   };
 </script>
-<script src="https://www.highperformanceformat.com/c9a47753ed7f31fece0519ed66636550/invoke.js"></script>
+<script src="https://www.highperformanceformat.com/f10ccb9678bfe29f56e955560b6155be/invoke.js"></script>
 
 </div>
 </div>
 
 <script>
-var floatAd=document.getElementById("bottomFloatAd");
+var floatAd = document.getElementById("bottomFloatAd");
 
 function showFloatAd(){
+floatAd.style.display="block";
+floatAd.classList.remove("hide");
 floatAd.classList.add("show");
 }
 
 function closeFloatAd(){
 floatAd.classList.remove("show");
+floatAd.classList.add("hide");
 
 setTimeout(function(){
-floatAd.classList.add("show");
-},30000);
+showFloatAd();
+},20000);
 }
 
 window.onload=function(){
-setTimeout(showFloatAd,1500);
+setTimeout(function(){
+showFloatAd();
+},1500);
 }
 </script>
 </body>
