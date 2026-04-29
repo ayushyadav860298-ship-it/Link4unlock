@@ -1,1 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://pl29256903.profitablecpmratenetwork.com/e5/6c/53/e56c53d32484861d3985d11234b53e0e.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Complete Tasks to Unlock Content | Link4Unlock</title>
+    <meta name="description" content="Complete social tasks to unlock premium content. Subscribe, like, follow and get access instantly!">
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232e40ea'/><text x='50' y='72' font-size='55' text-anchor='middle' fill='white' font-weight='bold'>L</text></svg>">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8edf8 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #2e40ea, #4f46e5);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon i { font-size: 18px; color: white; }
+        .logo-text { font-size: 1.3rem; font-weight: 800; background: linear-gradient(135deg, #1a1a2e, #2e40ea); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        
+        .create-link-btn {
+            background: linear-gradient(135deg, #2e40ea, #4f46e5);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .create-link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46,64,234,0.4);
+            color: white;
+        }
+        
+        /* Main Card */
+        .unlock-card {
+            max-width: 650px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15);
+        }
+        
+        /* Progress Bar */
+        .progress-section { margin-bottom: 30px; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #1a1a2e; font-size: 0.75rem; font-weight: 600; }
+        .progress-bar-container { background: #e2e8f0; border-radius: 60px; height: 8px; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #2e40ea, #4f46e5); width: 0%; height: 100%; border-radius: 60px; transition: width 0.3s ease; }
+        
+        /* Lock Header */
+        .lock-header { text-align: center; margin-bottom: 30px; }
+        .lock-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #f0f4ff, #e8edff); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .lock-icon i { font-size: 32px; color: #2e40ea; }
+        .lock-header h2 { color: #1a1a2e; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+        .lock-header p { color: #64748b; font-size: 0.85rem; }
+        
+        /* Tasks List */
+        .tasks-list { margin-bottom: 30px; }
+        .task-item {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+        }
+        .task-item.completed { border-color: #2e40ea; background: #f0f4ff; transform: scale(1.01); }
+        .task-icon { width: 45px; height: 45px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .task-icon i { font-size: 22px; color: #2e40ea; }
+        .task-info { flex: 1; }
+        .task-name { color: #1a1a2e; font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+        .task-status { font-size: 0.7rem; color: #64748b; }
+        .task-status.completed { color: #10b981; font-weight: 600; }
+        .task-button {
+            background: linear-gradient(135deg, #2e40ea, #4f46e5);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .task-button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(46,64,234,0.4); }
+        .task-button.completed { background: #10b981; cursor: default; transform: none; }
+        
+        /* Verify Button */
+        .verify-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 16px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 100%;
+            color: #64748b;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        .verify-btn.enabled { background: linear-gradient(135deg, #10b981, #059669); color: white; cursor: pointer; }
+        .verify-btn.enabled:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16,185,129,0.4); }
+        
+        /* Ads Sections - Professional */
+        .ad-container {
+            margin: 20px 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .ad-box {
+            background: linear-gradient(135deg, #f8f9fa, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .ad-label {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 0.6rem;
+            color: #94a3b8;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        .ad-content {
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .ad-content i { font-size: 28px; color: #cbd5e1; margin-bottom: 8px; }
+        .ad-content p { color: #94a3b8; font-size: 0.7rem; margin: 0; }
+        .ad-badge { background: #e2e8f0; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; color: #64748b; display: inline-block; margin-top: 8px; }
+        
+        /* Unlocked Content */
+        .destination-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            padding: 16px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 100%;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .destination-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(16,185,129,0.4); color: white; }
+        
+        .success-icon { width: 70px; height: 70px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .success-icon i { font-size: 32px; color: white; }
+        
+        /* Footer */
+        .footer { text-align: center; margin-top: 30px; color: #94a3b8; font-size: 0.7rem; }
+        
+        @media (max-width: 640px) {
+            .unlock-card { margin: 20px; padding: 1.5rem; }
+            .task-item { flex-wrap: wrap; }
+            .task-button { width: 100%; text-align: center; margin-top: 8px; }
+            .create-link-btn span { display: none; }
+            .create-link-btn i { margin: 0; }
+        }
+    </style>
+</head>
+<body>
 
+    <header class="header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="index.html" class="logo" style="text-decoration: none;">
+                    <div class="logo-icon"><i class="fas fa-link"></i></div>
+                    <span class="logo-text">Link4Unlock</span>
+                </a>
+                <a href="index.html" class="create-link-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create Your Own Link</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Locked State -->
+        <div id="lockedState">
+            <div class="unlock-card">
+                <div class="lock-header">
+                    <div class="lock-icon"><i class="fas fa-lock"></i></div>
+                    <h2>🔒 Content Locked</h2>
+                    <p>Complete all tasks below to unlock premium content</p>
+                </div>
+                
+                <!-- 📢 TOP AD SECTION -->
+                <div class="ad-container">
+                    <div class="ad-box">
+                        <div class="ad-label">Advertisement</div>
+                        <div class="ad-content">
+                            <i class="fas fa-ad"></i>
+                            <p><script>
+  atOptions = {
+    'key' : 'c9a47753ed7f31fece0519ed66636550',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c9a47753ed7f31fece0519ed66636550/invoke.js"></script>
+</p>
+                            <span class="ad-badge">----</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-label">
+                        <span><i class="fas fa-tasks me-1"></i> Your Progress</span>
+                        <span id="progressPercent">0%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+                
+                <!-- Tasks List -->
+                <div class="tasks-list" id="tasksList"></div>
+                
+                <!-- Verify Button -->
+                <button class="verify-btn" id="verifyBtn" disabled>
+                    <i class="fas fa-check-circle me-2"></i> Verify & Unlock
+                </button>
+                
+                <!-- 📢 BOTTOM AD SECTION -->
+                <div class="ad-container">
+                    <div class="ad-box">
+                        <div class="ad-label">Sponsored</div>
+                        <div class="ad-content">
+                            <i class="fas fa-chart-line"></i>
+                            <p><script async="async" data-cfasync="false" src="https://pl29288987.profitablecpmratenetwork.com/d722d48153cc2ae1744390464d97f8d7/invoke.js"></script>
+<div id="container-d722d48153cc2ae1744390464d97f8d7"></div>
+</p>
+                            <span class="ad-badge">Display Ad / Native Ad</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <i class="fas fa-shield-alt me-1"></i> Secure & Fast • Powered by Firebase
+                </div>
+            </div>
+        </div>
+        
+        <!-- Unlocked State -->
+        <div id="unlockedState" style="display: none;">
+            <div class="unlock-card">
+                <div class="lock-header">
+                    <div class="success-icon"><i class="fas fa-unlock-alt"></i></div>
+                    <h2>🎉 Content Unlocked!</h2>
+                    <p>Thank you for completing all tasks</p>
+                </div>
+                
+                <!-- 📢 AD AFTER UNLOCK -->
+                <div class="ad-container">
+                    <div class="ad-box">
+                        <div class="ad-label">Advertisement</div>
+                        <div class="ad-content">
+                            <i class="fas fa-gem"></i>
+                            <p><script>
+  atOptions = {
+    'key' : 'c9a47753ed7f31fece0519ed66636550',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c9a47753ed7f31fece0519ed66636550/invoke.js"></script>
+</p>
+                            <span class="ad-badge">Support Our Platform</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="destinationArea"></div>
+                
+                <!-- 📢 BOTTOM AD AFTER UNLOCK -->
+                <div class="ad-container">
+                    <div class="ad-box">
+                        <div class="ad-label">Recommended</div>
+                        <div class="ad-content">
+                            <i class="fas fa-rocket"></i>
+                            <p><script async="async" data-cfasync="false" src="https://pl29288987.profitablecpmratenetwork.com/d722d48153cc2ae1744390464d97f8d7/invoke.js"></script>
+<div id="container-d722d48153cc2ae1744390464d97f8d7"></div>
+</p>
+                            <span class="ad-badge">Sponsor</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <i class="fas fa-heart me-1" style="color: #10b981;"></i> Thanks for supporting! <a href="index.html" style="color:#2e40ea;">Create your own link →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <script>
+        // ========== FIREBASE CONFIG - APNI VALUES DAALO ==========
+        const firebaseConfig = {
+  apiKey: "AIzaSyDZc3VwtBiOSjm3H1QKvLGRZyz6zySKxSE",
+  authDomain: "link4unlock01.firebaseapp.com",
+  databaseURL: "https://link4unlock01-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "link4unlock01",
+  storageBucket: "link4unlock01.firebasestorage.app",
+  messagingSenderId: "682828717343",
+  appId: "1:682828717343:web:0e08adfc30919a31a1642a"
+};
+        // ==========================================================
+
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        const path = window.location.pathname;
+let shortCode = path.substring(1);      // "/abc123" -> "abc123"
+if (shortCode.endsWith('/')) shortCode = shortCode.slice(0, -1);
+      
+        let linkData = null;
+        let completedTasks = [];
+
+        async function loadLinkData() {
+            if (!shortCode) {
+                showError('Invalid link! Please check the URL.');
+                return;
+            }
+
+            const snapshot = await database.ref('links/' + shortCode).once('value');
+            const data = snapshot.val();
+            
+            if (data && data.tasks && data.tasks.length > 0) {
+                linkData = data;
+                completedTasks = new Array(linkData.tasks.length).fill(false);
+                renderTasks();
+                updateProgress();
+            } else {
+                showError('Link not found or expired!');
+            }
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('tasksList');
+            container.innerHTML = '';
+            
+            linkData.tasks.forEach((task, index) => {
+                const isCompleted = completedTasks[index];
+                const taskDiv = document.createElement('div');
+                taskDiv.className = `task-item ${isCompleted ? 'completed' : ''}`;
+                
+                taskDiv.innerHTML = `
+                    <div class="task-icon">
+                        <i class="${task.icon || getDefaultIcon(task.id)}"></i>
+                    </div>
+                    <div class="task-info">
+                        <div class="task-name">${task.name}</div>
+                        <div class="task-status ${isCompleted ? 'completed' : ''}">
+                            ${isCompleted ? '<i class="fas fa-check-circle me-1"></i> Completed' : '<i class="fas fa-clock me-1"></i> Pending'}
+                        </div>
+                    </div>
+                    <button class="task-button ${isCompleted ? 'completed' : ''}" data-index="${index}">
+                        ${isCompleted ? '<i class="fas fa-check me-1"></i> Done' : '<i class="fas fa-external-link-alt me-1"></i> Complete Task'}
+                    </button>
+                `;
+                
+                container.appendChild(taskDiv);
+                
+                const btn = taskDiv.querySelector('.task-button');
+                if (!isCompleted) {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.open(linkData.tasks[index].url, '_blank');
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Checking...';
+                        btn.disabled = true;
+                        
+                        setTimeout(() => {
+                            if (!completedTasks[index]) {
+                                completedTasks[index] = true;
+                                renderTasks();
+                                updateProgress();
+                                
+                                const allCompleted = completedTasks.every(v => v === true);
+                                const verifyBtn = document.getElementById('verifyBtn');
+                                const statusMsg = document.getElementById('statusMsg');
+                                if (allCompleted) {
+                                    verifyBtn.disabled = false;
+                                    verifyBtn.classList.add('enabled');
+                                    if(statusMsg) statusMsg.innerHTML = '<i class="fas fa-check-circle me-1"></i> All tasks completed! Click Verify & Unlock';
+                                }
+                            }
+                        }, 3000);
+                    });
+                }
+            });
+        }
+
+        function updateProgress() {
+            const total = linkData.tasks.length;
+            const completed = completedTasks.filter(v => v === true).length;
+            const percent = Math.round((completed / total) * 100);
+            
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            if (progressFill) progressFill.style.width = percent + '%';
+            if (progressPercent) progressPercent.innerHTML = `${completed}/${total} (${percent}%)`;
+            
+            const verifyBtn = document.getElementById('verifyBtn');
+            if (completed === total && verifyBtn) {
+                verifyBtn.disabled = false;
+                verifyBtn.classList.add('enabled');
+            }
+        }
+
+        function getDefaultIcon(taskId) {
+            const icons = {
+                'subscribe': 'fab fa-youtube',
+                'subscribe2': 'fab fa-youtube',
+                'like_sub': 'fas fa-thumbs-up',
+                'sub_bell': 'fas fa-bell',
+                'like_comment': 'fas fa-comment',
+                'like_video': 'fas fa-heart',
+                'follow_insta': 'fab fa-instagram',
+                'join_telegram': 'fab fa-telegram',
+                'join_discord': 'fab fa-discord',
+                'custom_link': 'fas fa-link'
+            };
+            return icons[taskId] || 'fas fa-link';
+        }
+
+        document.getElementById('verifyBtn').addEventListener('click', async () => {
+            const allCompleted = completedTasks.every(v => v === true);
+            if (!allCompleted) {
+                alert('Please complete all tasks first!');
+                return;
+            }
+            
+            // Show unlocked content
+            document.getElementById('lockedState').style.display = 'none';
+            document.getElementById('unlockedState').style.display = 'block';
+            
+            const destArea = document.getElementById('destinationArea');
+            destArea.innerHTML = `
+                <a href="${linkData.destination_url}" target="_blank" class="destination-btn">
+                    <i class="fas fa-arrow-right me-2"></i> Access Your Content Now
+                    <i class="fas fa-external-link-alt ms-2" style="font-size: 0.7rem;"></i>
+                </a>
+            `;
+            
+            // Update unlock count
+            await database.ref('links/' + shortCode).update({
+                unlocks: (linkData.unlocks || 0) + 1,
+                unlocked_at: Date.now()
+            });
+        });
+
+        function showError(message) {
+            document.getElementById('lockedState').innerHTML = `
+                <div class="unlock-card" style="text-align:center">
+                    <div class="lock-icon" style="background:#fee2e2;">
+                        <i class="fas fa-exclamation-triangle" style="color:#ef4444;"></i>
+                    </div>
+                    <h2 style="color:#1a1a2e;">⚠️ ${message}</h2>
+                    <p style="color:#64748b; margin-bottom:20px;">The link may be invalid or has been removed.</p>
+                    <a href="index.html" class="create-link-btn" style="display:inline-block;">
+                        <i class="fas fa-plus-circle me-2"></i> Create Your Own Link
+                    </a>
+                    <div class="ad-container" style="margin-top:20px;">
+                        <div class="ad-box"><div class="ad-label">Advertisement</div><div class="ad-content"><i class="fas fa-ad"></i><p>Your Ad Space</p></div></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        loadLinkData();
+    </script>
+<!-- Bottom Floating Slide Ad with Close Button + Return After 30 Sec -->
+<style>
+#bottomFloatAd{
+position:fixed;
+left:50%;
+bottom:-120px;
+transform:translateX(-50%);
+width:320px;
+max-width:95%;
+background:#111;
+border-radius:12px 12px 0 0;
+box-shadow:0 -4px 15px rgba(0,0,0,.35);
+z-index:99999;
+overflow:hidden;
+transition:all .5s ease;
+}
+#bottomFloatAd.show{bottom:0;}
+
+#bottomFloatAd .closeBtn{
+position:absolute;
+top:4px;
+right:6px;
+width:18px;
+height:18px;
+line-height:18px;
+text-align:center;
+font-size:12px;
+background:#fff;
+color:#000;
+border-radius:50%;
+cursor:pointer;
+z-index:2;
+}
+
+#bottomFloatAd .adBox{
+padding:20px 0 0;
+text-align:center;
+min-height:50px;
+}
+
+@media(max-width:480px){
+#bottomFloatAd{width:100%;}
+}
+</style>
+
+<div id="bottomFloatAd">
+<div class="closeBtn" onclick="closeFloatAd()">✕</div>
+
+<div class="adBox">
+
+<!-- Ads Code Here -->
+<script>
+  atOptions = {
+    'key' : 'c9a47753ed7f31fece0519ed66636550',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/c9a47753ed7f31fece0519ed66636550/invoke.js"></script>
+
+</div>
+</div>
+
+<script>
+var floatAd=document.getElementById("bottomFloatAd");
+
+function showFloatAd(){
+floatAd.classList.add("show");
+}
+
+function closeFloatAd(){
+floatAd.classList.remove("show");
+
+setTimeout(function(){
+floatAd.classList.add("show");
+},30000);
+}
+
+window.onload=function(){
+setTimeout(showFloatAd,1500);
+}
+</script>
+</body>
+</html>
